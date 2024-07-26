@@ -1,2 +1,5 @@
 so_long
 test.o
+*.o
+*.a
+.vscode
