@@ -6,7 +6,7 @@
 /*   By: tamatsuu <tamatsuu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:53:21 by tamatsuu          #+#    #+#             */
-/*   Updated: 2024/07/27 03:40:27 by tamatsuu         ###   ########.fr       */
+/*   Updated: 2024/07/28 21:18:10 by tamatsuu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,12 @@
 
 int	so_long(char *map_file_path)
 {
-	int	fd;
-	int map_valid_ret;
+	int					fd;
+	int					map_valid_ret;
+	char				**bermap;
+	static t_map_info	map_i = {.row_num = 0, .col_num = 0, .c_cnt = 0, \
+	.e_cnt = 0, .p_cnt = 0};
 
-	fd = open(map_file_path, O_RDONLY);
-	if (fd < 0)
-		return(close(fd), FILE_OPEN_ERR);
-	map_valid_ret = map_validator(fd);
-	if (map_valid_ret < 0)
-		return (close(fd), map_valid_ret);
-	
+	map_valid_ret = init_map(map_file_path, &bermap, &map_i);
+
 }
