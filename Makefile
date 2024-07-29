@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tamatsuu <tamatsuu@student.42.fr>          +#+  +:+       +#+         #
+#    By: tamatsuu <tamatsuu@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/12 13:13:24 by tamatsuu          #+#    #+#              #
-#    Updated: 2024/07/27 03:06:33 by tamatsuu         ###   ########.fr        #
+#    Updated: 2024/07/30 03:02:31 by tamatsuu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 

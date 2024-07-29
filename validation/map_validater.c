@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validater.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamatsuu <tamatsuu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tamatsuu <tamatsuu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 03:23:28 by tamatsuu          #+#    #+#             */
-/*   Updated: 2024/07/28 23:45:45 by tamatsuu         ###   ########.fr       */
+/*   Updated: 2024/07/30 03:29:17 by tamatsuu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	check_wall_elclosure(char **bermap, t_map_info *m_info)
 	{
 		if (bermap[m_info->row_num - 1][i] != WALL || bermap[0][i] != WALL)
 			return (MAP_IS_NOT_ENCLOSED);
-		j = 0;	
+		j = 0;
 		if (i == 0 || i == (m_info->row_num - 1))
 		{
 			while (j < m_info->col_num)
@@ -70,15 +70,15 @@ int	check_elements_integrity(char **bermap, t_map_info *m_info)
 	i = 0;
 	while (i < m_info->row_num)
 	{
-		if (ft_strchr(bermap[i], 'E') == ft_strrchr(bermap[i], 'E'))
-			set_map_info_e_cnt(m_info, m_info->e_cnt + 1);
-		else
-			return (MAP_HAS_INVALID_NUM_END);
-		if (ft_strchr(bermap[i], 'P') == ft_strrchr(bermap[i], 'P'))
-			set_map_info_p_cnt(m_info, m_info->p_cnt + 1);
-		else
-			return (MAP_HAS_INVALID_NUM_PLAYER);
+		set_map_info_e_cnt(m_info, m_info->e_cnt + cnt_word(bermap[i], 'E'));
+		if (cnt_word(bermap[i], 'P'))
+		{
+			set_map_info_p_cnt(m_info, m_info->p_cnt + cnt_word(bermap[i], 'P'));
+			set_map_info_x(m_info, ft_char_find_place(bermap[i], 'P'));
+			set_map_info_y(m_info, i);
+		}
 		set_map_info_c_cnt(m_info, m_info->c_cnt + cnt_word(bermap[i], 'C'));
+		i++;
 	}
 	if (m_info->e_cnt == 0 || 1 < m_info->e_cnt)
 		return (MAP_HAS_INVALID_NUM_END);
@@ -89,14 +89,33 @@ int	check_elements_integrity(char **bermap, t_map_info *m_info)
 	return (0);
 }
 
-void dfs(int x, int y, char ***tmp_map, char **map)
+void	dfs(char ***tmp_map, char **map, t_map_info *tmp_map_inf)
 {
-    if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT || map[y][x] == '1' || visited[y][x]) return;
-    visited[y][x] = 1;
-    if (map[y][x] == 'C') (*collected)++;
-    if (map[y][x] == 'E') *found_exit = 1;
-    dfs(x + 1, y, visited, collected, found_exit, item_count);
-    dfs(x - 1, y, visited, collected, found_exit, item_count);
-    dfs(x, y + 1, visited, collected, found_exit, item_count);
-    dfs(x, y - 1, visited, collected, found_exit, item_count);
+	if (x < 0 || x >= tmp_map_inf->col_num || y < 0 \
+	|| y >= tmp_map_inf->row_num || map[y][x] == '1' || (*tmp_map)[y][x])
+		return;
+	(*tmp_map)[y][x] = '1';
+	if (map[y][x] == 'C') 
+	tmp_map_inf->c_cnt++;
+	if (map[y][x] == 'E')
+	tmp_map_inf->e_cnt++;
+	dfs(x + 1, y, tmp_map, map, tmp_map_inf);
+	dfs(x - 1, y, tmp_map, map, tmp_map_inf);
+	dfs(x, y + 1, tmp_map, map, tmp_map_inf);
+	dfs(x, y - 1, tmp_map, map, tmp_map_inf);
+}
+int	ft_char_find_place(char const *set, int s)
+{
+	int	i;
+
+	i = 0;
+	if (!set)
+		return (0);
+	while (set[i])
+	{
+		if (set[i] == s)
+			return (i);
+		i++;
+	}
+	return (0);
 }

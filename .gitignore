@@ -3,3 +3,5 @@ test.o
 *.o
 *.a
 .vscode
+*.tgz
+*.Identifier
