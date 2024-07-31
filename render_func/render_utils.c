@@ -6,7 +6,7 @@
 /*   By: tamatsuu <tamatsuu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 04:08:38 by tamatsuu          #+#    #+#             */
-/*   Updated: 2024/08/01 04:21:17 by tamatsuu         ###   ########.fr       */
+/*   Updated: 2024/08/01 04:28:41 by tamatsuu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ void	set_map_position(int keycode, t_vars *vars)
 	vars->m_info->y = y;
 }
 
-end_game(t_vars *vars)
+void	end_game(t_vars *vars)
 {	
 	close_window(vars);
 }
 
-close_window(t_vars *vars)
+void	close_window(t_vars *vars)
 {
 	free_map(vars->map);
 	free(vars->mlx);
