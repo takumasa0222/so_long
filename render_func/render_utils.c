@@ -6,14 +6,14 @@
 /*   By: tamatsuu <tamatsuu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 04:08:38 by tamatsuu          #+#    #+#             */
-/*   Updated: 2024/08/01 04:28:41 by tamatsuu         ###   ########.fr       */
+/*   Updated: 2024/08/04 22:59:50 by tamatsuu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 #include <mlx.h>
 #include "render_func.h"
-//#include "../utilities/"
+#include "../utilities/so_long_utils.h"
 
 void	set_map_position(int keycode, t_vars *vars)
 {
@@ -30,8 +30,8 @@ void	set_map_position(int keycode, t_vars *vars)
 		y = y - 1;
 	else if (keycode == DOWN_KEY)
 		x = x + 1;
-	vars->map[vars->m_info->y][vars->m_info->x] = EMPTY;
-	vars->map[y][x] = PLAYER;
+	vars->map[vars->m_info->x][vars->m_info->y] = EMPTY;
+	vars->map[x][y] = PLAYER;
 	vars->m_info->x = x;
 	vars->m_info->y = y;
 }
@@ -43,6 +43,8 @@ void	end_game(t_vars *vars)
 
 void	close_window(t_vars *vars)
 {
-	free_map(vars->map);
-	free(vars->mlx);
+	free_map(&(vars->map), vars->m_info->row_num);
+	mlx_destroy_window(vars->mlx, vars->win);
+	mlx_destroy_display(vars->mlx);
+	exit(0);
 }

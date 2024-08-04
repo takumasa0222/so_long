@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamatsuu <tamatsuu@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tamatsuu <tamatsuu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:25:09 by tamatsuu          #+#    #+#             */
-/*   Updated: 2024/07/31 06:49:27 by tamatsuu         ###   ########.fr       */
+/*   Updated: 2024/08/04 23:31:37 by tamatsuu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@
 # define MAP_HAS_INVALID_NUM_PLAYER -8
 # define COLLECTIBLE_NOT_FOUND -9
 # define NO_AVAILABLE_PATH -10
-
+# define ARG_NUM_INVALID -11
+# define INVALID_FILE_TYPE -12
 
 typedef struct s_map_info
 {

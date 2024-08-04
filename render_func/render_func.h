@@ -6,7 +6,7 @@
 /*   By: tamatsuu <tamatsuu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 02:41:46 by tamatsuu          #+#    #+#             */
-/*   Updated: 2024/08/01 03:41:09 by tamatsuu         ###   ########.fr       */
+/*   Updated: 2024/08/04 18:54:51 by tamatsuu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@
 # define EMPTY '0'
 # define COLLECTIBLE 'C'
 # define EXIT 'E'
-# define PLAYER_XPM "../textures/player.xpm"
-# define WALL_XPM "../textures/wall.xpm"
-# define EMPTY_XPM "../textures/empty.xpm"
-# define COLCTIB_XPM "../textures/collectible.xpm"
-# define EXIT_XPM "../textures/exit.xpm"
+# define PLAYER_XPM "./textures/player.xpm"
+# define WALL_XPM "./textures/wall.xpm"
+# define EMPTY_XPM "./textures/empty.xpm"
+# define COLCTIB_XPM "./textures/collectible.xpm"
+# define EXIT_XPM "./textures/exit.xpm"
 # define PIX 64
 # define GAME_END 1
 # define NO_MOVE 0
@@ -42,5 +42,19 @@ typedef struct s_vars
 	char		**map;
 	t_map_info	*m_info;
 }	t_vars;
+
+int		init_render(char **map, t_map_info	*m_inf);
+int		key_hook(int keycode, t_vars *vars);
+int		move_player(int keycode, t_vars *vars);
+int		render_map(t_vars *vars);
+void	render_component_img(char comp, t_vars *vars, int i, int j);
+
+int		movable_check(t_vars *vars, int keycode);
+int		check_collective(t_vars *vars, int keycode);
+int		check_end(t_vars *vars, int keycode);
+
+void	set_map_position(int keycode, t_vars *vars);
+void	end_game(t_vars *vars);
+void	close_window(t_vars *vars);
 
 #endif

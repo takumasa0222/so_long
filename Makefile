@@ -3,15 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tamatsuu <tamatsuu@student.42tokyo.jp>     +#+  +:+       +#+         #
+#    By: tamatsuu <tamatsuu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/12 13:13:24 by tamatsuu          #+#    #+#              #
-#    Updated: 2024/07/31 06:24:59 by tamatsuu         ###   ########.fr        #
+#    Updated: 2024/08/04 23:26:48 by tamatsuu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror
+#CFLAGS		= -Wall -Wextra -Werror -fsanitize=address
+CFLAGS		= -Wall -Wextra -Werror 
 SRCS		= main.c \
 so_long.c \
 ./utilities/map_setter.c \
@@ -19,8 +20,13 @@ so_long.c \
 ./utilities/map_utilities.c \
 ./utilities/map_utilities_2.c \
 ./validation/map_validater.c \
+./validation/arg_validater.c \
 ./ft_get_next_line/get_next_line.c \
 ./ft_get_next_line/get_next_line_utils.c \
+./render_func/render_check.c \
+./render_func/render_map.c \
+./render_func/render_utils.c \
+
 
 
 OBJS		= $(SRCS:%.c=%.o)
@@ -40,7 +46,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	@make -C mlx_linux
 	@make -C libft
-	$(CC) $(OBJS) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+	$(CC) $(OBJS) -Lft -lft -L./libft -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 
 
 
@@ -52,8 +58,6 @@ $(NAME): $(OBJS)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -I/usr/include -Imlx_linux -O3 -c $< -o $@
-
-
 
 clean:
 	@make clean -C mlx_linux

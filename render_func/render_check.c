@@ -6,7 +6,7 @@
 /*   By: tamatsuu <tamatsuu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:29:50 by tamatsuu          #+#    #+#             */
-/*   Updated: 2024/08/01 04:08:47 by tamatsuu         ###   ########.fr       */
+/*   Updated: 2024/08/04 22:46:08 by tamatsuu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,16 @@ int	movable_check(t_vars *vars, int keycode)
 		y = y - 1;
 	else if (keycode == DOWN_KEY)
 		x = x + 1;
+	printf("m_inf->row_num%u\n",vars->m_info->row_num);
+	printf("m_inf->col_num%u\n",vars->m_info->col_num);
+	printf("x%zd\n",x);
+	printf("y%zd\n",y);
 	if (x >= vars->m_info->row_num || x <= 0 || \
 	y <= 0 || vars->m_info->col_num <= y)
 		return (NO_MOVE);
-	else if (vars->map[y][x] == WALL)
+	else if (vars->map[x][y] == WALL)
 		return (NO_MOVE);
-	else if (vars->map[y][x] == EXIT && vars->m_info->c_cnt)
+	else if (vars->map[x][y] == EXIT && vars->m_info->c_cnt)
 		return (NO_MOVE);
 	else
 		return (MOVE);
@@ -55,7 +59,7 @@ int	check_collective(t_vars *vars, int keycode)
 		y = y - 1;
 	else if (keycode == DOWN_KEY)
 		x = x + 1;
-	if (vars->map[y][x] == COLLECTIBLE)
+	if (vars->map[x][y] == COLLECTIBLE)
 		vars->m_info->c_cnt--;
 	return (0);
 }
@@ -75,7 +79,7 @@ int	check_end(t_vars *vars, int keycode)
 		y = y - 1;
 	else if (keycode == DOWN_KEY)
 		x = x + 1;
-	if (vars->map[y][x] == EXIT && !vars->m_info->c_cnt)
+	if (vars->map[x][y] == EXIT && !vars->m_info->c_cnt)
 		return (GAME_END);
 	return (0);
 }

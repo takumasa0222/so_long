@@ -6,7 +6,7 @@
 /*   By: tamatsuu <tamatsuu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:49:11 by tamatsuu          #+#    #+#             */
-/*   Updated: 2024/08/01 04:15:46 by tamatsuu         ###   ########.fr       */
+/*   Updated: 2024/08/04 20:25:39 by tamatsuu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	init_render(char **map, t_map_info	*m_inf)
 	render_map(&vars);
 	mlx_key_hook(vars.win, key_hook, &vars);
 	mlx_loop(vars.mlx);
+	return (0);
 }
 
 int	key_hook(int keycode, t_vars *vars)
@@ -36,10 +37,10 @@ int	key_hook(int keycode, t_vars *vars)
 	int	mv_ret;
 
 	mv_ret = 0;
-	if (UP_KEY <= keycode && key_hook <= RIGHT_KEY)
+	if (UP_KEY <= keycode && keycode <= RIGHT_KEY)
 	{
-		mv_ret = move_player(key_hook, vars);
-		show_nb_move();
+		mv_ret = move_player(keycode, vars);
+		//show_nb_move();
 		if (mv_ret == GAME_END)
 			end_game(vars);
 	}
@@ -55,8 +56,8 @@ int	move_player(int keycode, t_vars *vars)
 	is_end = 0;
 	if (!movable_check(vars, keycode))
 		return (0);
-	check_collective(vars);
-	is_end = check_end(vars);
+	check_collective(vars, keycode);
+	is_end = check_end(vars, keycode);
 	set_map_position(keycode, vars);
 	render_map(vars);
 	if (is_end)
@@ -79,7 +80,7 @@ int	render_map(t_vars *vars)
 		j = 0;
 		while (j < y)
 		{
-			render_component_img(vars->map[j][i], vars, i, j);
+			render_component_img(vars->map[i][j], vars, i, j);
 			j++;
 		}
 		i++;
@@ -87,7 +88,7 @@ int	render_map(t_vars *vars)
 	return (0);
 }
 
-void	*render_component_img(char comp, t_vars *vars, int i, int j)
+void	render_component_img(char comp, t_vars *vars, int i, int j)
 {
 	void	*image;
 	int		width;
@@ -108,4 +109,5 @@ void	*render_component_img(char comp, t_vars *vars, int i, int j)
 		image = mlx_xpm_file_to_image(vars->mlx, EXIT_XPM, &width, &height);
 	if (image)
 		mlx_put_image_to_window(vars->mlx, vars->win, image, j * PIX, i * PIX);
+	mlx_destroy_image(vars->mlx, image);
 }

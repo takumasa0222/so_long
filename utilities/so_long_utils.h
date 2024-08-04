@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long_utils.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamatsuu <tamatsuu@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tamatsuu <tamatsuu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 06:03:07 by tamatsuu          #+#    #+#             */
-/*   Updated: 2024/07/31 06:28:02 by tamatsuu         ###   ########.fr       */
+/*   Updated: 2024/08/04 22:39:11 by tamatsuu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	set_map_info_y(t_map_info *map_info, ssize_t y);
 int		init_map(char *map_file_path, char ***bermap, t_map_info *map_i);
 int		init_tmp_map(char ***tmp_m, t_map_info **tmp_m_inf, t_map_info *m_inf);
 int		get_map(int fd, char ***bermap, t_map_info *map_i);
-int		free_map(char ***bermap);
+int		free_map(char ***bermap, unsigned int l);
 
 //map_utilities_2
 int		ft_char_find_place(char *set, int s);

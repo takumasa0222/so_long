@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   arg_validater.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tamatsuu <tamatsuu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/22 22:23:08 by tamatsuu          #+#    #+#             */
-/*   Updated: 2024/08/04 23:23:37 by tamatsuu         ###   ########.fr       */
+/*   Created: 2024/08/04 23:16:17 by tamatsuu          #+#    #+#             */
+/*   Updated: 2024/08/04 23:39:35 by tamatsuu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
-#include "./libft/libft.h"
-#include "./validation/so_long_validation.h"
+#include "../so_long.h"
+#include "../libft/libft.h"
 
-int	main(int argc, char *argv[])
+int	arg_check(int argc, char **argv)
 {
-	int	err_no;
+	size_t	i;
 
-	(void)argc; 
-	if (arg_check(argc, argv))
+	i = 0;
+	if (argc != 2)
+		return (ARG_NUM_INVALID);
+	if (argv[1])
 	{
-		ft_putstr_fd(ARG_ERROR_MSG, STDERR_FILENO);
-		return (-1);
+		i = ft_strlen(argv[1]);
+		//if (i < 4 || ft_strncmp())
+			return (INVALID_FILE_TYPE);
+
 	}
-	err_no = so_long(argv[1]);
 	return (0);
 }

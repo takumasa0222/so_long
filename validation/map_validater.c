@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validater.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamatsuu <tamatsuu@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tamatsuu <tamatsuu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 03:23:28 by tamatsuu          #+#    #+#             */
-/*   Updated: 2024/07/31 06:50:40 by tamatsuu         ###   ########.fr       */
+/*   Updated: 2024/08/04 22:39:37 by tamatsuu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ int	map_validator(char **map, t_map_info *map_info)
 
 	err_no = 0;
 	err_no = check_wall_elclosure(map, map_info);
-	if (!err_no)
+	if (err_no)
 		return (err_no);
 	err_no = check_elements_integrity(map, map_info);
-	if (!err_no)
+	if (err_no)
 		return (err_no);
 	err_no = check_valid_path(map, map_info);
 	return (err_no);
@@ -44,7 +44,7 @@ int	check_wall_elclosure(char **bermap, t_map_info *m_info)
 		{
 			while (j < (int)m_info->col_num)
 			{
-				if (bermap[j][i] != WALL)
+				if (bermap[i][j] != WALL)
 					return (MAP_IS_NOT_ENCLOSED);
 				j++;
 			}
@@ -60,17 +60,22 @@ int	check_valid_path(char **bermap, t_map_info *m_info)
 	char		**tmp_map;
 	int			err_no;
 
-	err_no = 0;
 	err_no = init_tmp_map(&tmp_map, &tmp_map_info, m_info);
-	if (!err_no)
+	if (err_no)
 		return (err_no);
+	err_no = NO_AVAILABLE_PATH;
 	set_map_info_x(tmp_map_info, m_info->x);
 	set_map_info_y(tmp_map_info, m_info->y);
+	set_map_info_row(tmp_map_info, m_info->row_num);
+	set_map_info_col(tmp_map_info, m_info->col_num);
+	set_map_info_e_cnt(tmp_map_info, 0);
+	set_map_info_c_cnt(tmp_map_info, 0);
 	dfs_path_check(&tmp_map, bermap, tmp_map_info);
 	if (tmp_map_info->c_cnt == m_info->c_cnt && tmp_map_info->e_cnt)
-		return (err_no);
-	else
-		return (NO_AVAILABLE_PATH);
+		err_no = 0;
+	free(tmp_map_info);
+	free_map(&tmp_map, m_info->row_num);
+	return (err_no);
 }
 
 int	check_elements_integrity(char **map, t_map_info *m_info)
@@ -84,8 +89,8 @@ int	check_elements_integrity(char **map, t_map_info *m_info)
 		if (cnt_word(map[i], 'P'))
 		{
 			set_map_info_p_cnt(m_info, m_info->p_cnt + cnt_word(map[i], 'P'));
-			set_map_info_x(m_info, ft_char_find_place(map[i], 'P'));
-			set_map_info_y(m_info, i);
+			set_map_info_y(m_info, ft_char_find_place(map[i], 'P'));
+			set_map_info_x(m_info, i);
 		}
 		set_map_info_c_cnt(m_info, m_info->c_cnt + cnt_word(map[i], 'C'));
 		i++;
@@ -107,13 +112,16 @@ void	dfs_path_check(char ***tmp_map, char **map, t_map_info *tmp_m_inf)
 	x = tmp_m_inf->x;
 	y = tmp_m_inf->y;
 	if (x < 1 || tmp_m_inf->row_num < x || y < 1 \
-	|| y >= tmp_m_inf->col_num || map[y][x] == '1' || (*tmp_map)[y][x])
+	|| y >= tmp_m_inf->col_num || map[x][y] == '1' || (*tmp_map)[x][y])
 		return ;
-	(*tmp_map)[y][x] = '1';
-	if (map[y][x] == 'C')
-	tmp_m_inf->c_cnt++;
-	if (map[y][x] == 'E')
-	tmp_m_inf->e_cnt++;
+	(*tmp_map)[x][y] = '1';
+	if (map[x][y] == 'C')
+		tmp_m_inf->c_cnt++;
+	if (map[x][y] == 'E')
+	{
+		tmp_m_inf->e_cnt++;
+		return ;
+	}
 	tmp_m_inf->x = x + 1;
 	dfs_path_check(tmp_map, map, tmp_m_inf);
 	tmp_m_inf->x = x - 1;
