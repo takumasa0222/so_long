@@ -6,7 +6,7 @@
 /*   By: tamatsuu <tamatsuu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:53:21 by tamatsuu          #+#    #+#             */
-/*   Updated: 2024/07/31 06:27:19 by tamatsuu         ###   ########.fr       */
+/*   Updated: 2024/08/04 14:45:06 by tamatsuu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	so_long(char *map_file_path)
 	.e_cnt = 0, .p_cnt = 0, .x = 0, .y = 0};
 
 	map_valid_ret = init_map(map_file_path, &bermap, &map_i);
-	return (map_valid_ret);
-
+	if (map_valid_ret)
+		error_call(map_valid_ret);
+	init_render(bermap, &map_i);
 }
