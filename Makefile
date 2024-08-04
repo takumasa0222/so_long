@@ -6,13 +6,22 @@
 #    By: tamatsuu <tamatsuu@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/12 13:13:24 by tamatsuu          #+#    #+#              #
-#    Updated: 2024/07/30 03:02:31 by tamatsuu         ###   ########.fr        #
+#    Updated: 2024/07/31 06:24:59 by tamatsuu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC			= cc
 CFLAGS		= -Wall -Wextra -Werror
-SRCS		= test.c
+SRCS		= main.c \
+so_long.c \
+./utilities/map_setter.c \
+./utilities/map_setter_2.c \
+./utilities/map_utilities.c \
+./utilities/map_utilities_2.c \
+./validation/map_validater.c \
+./ft_get_next_line/get_next_line.c \
+./ft_get_next_line/get_next_line_utils.c \
+
 
 OBJS		= $(SRCS:%.c=%.o)
 BONUS		=
