@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamatsuu <tamatsuu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tamatsuu <tamatsuu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:49:11 by tamatsuu          #+#    #+#             */
-/*   Updated: 2024/08/04 20:25:39 by tamatsuu         ###   ########.fr       */
+/*   Updated: 2024/08/06 02:32:53 by tamatsuu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,22 @@
 
 int	init_render(char **map, t_map_info	*m_inf)
 {
-	t_vars	vars;
-	int		win_wid;
-	int		win_height;
+	t_vars		vars;
+	int			win_wid;
+	int			win_height;
+	t_char_info	*char_info;
 
+	char_info = malloc(1 * sizeof(t_char_info));
+	if (!char_info)
+		return (MEM_ALLOCATION_ERR);
+	char_info->mov_cnt = 0;
 	win_wid = m_inf->col_num * PIX;
 	win_height = m_inf->row_num * PIX;
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, win_wid, win_height, WIN_TITLE);
 	vars.map = map;
 	vars.m_info = m_inf;
+	vars.c_info = char_info;
 	render_map(&vars);
 	mlx_key_hook(vars.win, key_hook, &vars);
 	mlx_loop(vars.mlx);
@@ -40,9 +46,15 @@ int	key_hook(int keycode, t_vars *vars)
 	if (UP_KEY <= keycode && keycode <= RIGHT_KEY)
 	{
 		mv_ret = move_player(keycode, vars);
-		//show_nb_move();
 		if (mv_ret == GAME_END)
+		{
+			show_move_count(vars, MOVE);
 			end_game(vars);
+		}
+		else if (mv_ret == NO_MOVE)
+			return (0);
+		else
+			show_move_count(vars, MOVE);
 	}
 	if (keycode == ESC)
 		close_window(vars);
@@ -55,14 +67,14 @@ int	move_player(int keycode, t_vars *vars)
 
 	is_end = 0;
 	if (!movable_check(vars, keycode))
-		return (0);
+		return (NO_MOVE);
 	check_collective(vars, keycode);
 	is_end = check_end(vars, keycode);
 	set_map_position(keycode, vars);
 	render_map(vars);
 	if (is_end)
 		return (GAME_END);
-	return (0);
+	return (MOVE);
 }
 
 int	render_map(t_vars *vars)

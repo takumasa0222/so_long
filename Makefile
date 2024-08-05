@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tamatsuu <tamatsuu@student.42.fr>          +#+  +:+       +#+         #
+#    By: tamatsuu <tamatsuu@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/12 13:13:24 by tamatsuu          #+#    #+#              #
-#    Updated: 2024/08/04 23:26:48 by tamatsuu         ###   ########.fr        #
+#    Updated: 2024/08/06 05:01:52 by tamatsuu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,10 @@ so_long.c \
 ./utilities/map_setter_2.c \
 ./utilities/map_utilities.c \
 ./utilities/map_utilities_2.c \
+./utilities/error_utils.c \
 ./validation/map_validater.c \
 ./validation/arg_validater.c \
+./validation/map_validater_2.c \
 ./ft_get_next_line/get_next_line.c \
 ./ft_get_next_line/get_next_line_utils.c \
 ./render_func/render_check.c \

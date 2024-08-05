@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_func.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamatsuu <tamatsuu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tamatsuu <tamatsuu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 02:41:46 by tamatsuu          #+#    #+#             */
-/*   Updated: 2024/08/04 18:54:51 by tamatsuu         ###   ########.fr       */
+/*   Updated: 2024/08/06 03:01:18 by tamatsuu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,15 @@
 # define COLCTIB_XPM "./textures/collectible.xpm"
 # define EXIT_XPM "./textures/exit.xpm"
 # define PIX 64
-# define GAME_END 1
+# define GAME_END 2
 # define NO_MOVE 0
 # define MOVE 1
+# define MOVE_COUNT_MSG "Move count : "
+
+typedef struct s_char_info
+{
+	size_t		mov_cnt;
+}	t_char_info;
 
 typedef struct s_vars
 {
@@ -41,6 +47,7 @@ typedef struct s_vars
 	void		*win;
 	char		**map;
 	t_map_info	*m_info;
+	t_char_info	*c_info;
 }	t_vars;
 
 int		init_render(char **map, t_map_info	*m_inf);
@@ -56,5 +63,6 @@ int		check_end(t_vars *vars, int keycode);
 void	set_map_position(int keycode, t_vars *vars);
 void	end_game(t_vars *vars);
 void	close_window(t_vars *vars);
+void	show_move_count(t_vars *vars, int mov_cnt);
 
 #endif

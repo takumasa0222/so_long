@@ -1,34 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   arg_validater.c                                    :+:      :+:    :+:   */
+/*   map_validater_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tamatsuu <tamatsuu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/04 23:16:17 by tamatsuu          #+#    #+#             */
-/*   Updated: 2024/08/06 01:50:34 by tamatsuu         ###   ########.fr       */
+/*   Created: 2024/08/06 04:43:09 by tamatsuu          #+#    #+#             */
+/*   Updated: 2024/08/06 05:13:19 by tamatsuu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 #include "../libft/libft.h"
-#include "./so_long_validation.h"
+#include "../utilities/so_long_utils.h"
 
-int	arg_check(int argc, char **argv)
+int	detect_invalid_char(char *str, char *valid_str, size_t col_num)
 {
+	size_t	valid_str_len;
 	size_t	i;
-	char	*temp;
+	size_t	cnt_total;
 
 	i = 0;
-	if (argc != 2)
-		return (ARG_NUM_INVALID);
-	if (argv[1])
+	cnt_total = 0;
+	if (!str || !valid_str)
+		return (MAP_HAS_INVALID_CHAR);
+	valid_str_len = ft_strlen(valid_str);
+	while (i < valid_str_len)
 	{
-		i = ft_strlen(argv[1]);
-		temp = ft_substr(argv[1], i - 4, 4);
-		if (i < 4 || !temp || ft_strncmp(temp, BER_EXTENSIOIN, 4))
-			return (INVALID_FILE_TYPE);
-		free(temp);
+		cnt_total += cnt_word(str, valid_str[i]);
+		i++;
 	}
-	return (0);
+	if (col_num == cnt_total)
+		return (0);
+	else
+		return (MAP_HAS_INVALID_CHAR);
 }

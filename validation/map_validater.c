@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validater.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamatsuu <tamatsuu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tamatsuu <tamatsuu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 03:23:28 by tamatsuu          #+#    #+#             */
-/*   Updated: 2024/08/04 22:39:37 by tamatsuu         ###   ########.fr       */
+/*   Updated: 2024/08/06 05:11:13 by tamatsuu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ int	check_elements_integrity(char **map, t_map_info *m_info)
 			set_map_info_x(m_info, i);
 		}
 		set_map_info_c_cnt(m_info, m_info->c_cnt + cnt_word(map[i], 'C'));
+		if (detect_invalid_char(map[i], VALID_CHAR, m_info->col_num))
+			return (MAP_HAS_INVALID_CHAR);
 		i++;
 	}
 	if (m_info->e_cnt == 0 || 1 < m_info->e_cnt)

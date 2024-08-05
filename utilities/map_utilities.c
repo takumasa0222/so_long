@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_utilities.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamatsuu <tamatsuu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tamatsuu <tamatsuu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 15:11:09 by tamatsuu          #+#    #+#             */
-/*   Updated: 2024/08/04 23:02:48 by tamatsuu         ###   ########.fr       */
+/*   Updated: 2024/08/06 04:15:38 by tamatsuu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	init_map(char *map_file_path, char ***bermap, t_map_info *map_i)
 	set_map_info_row(map_i, i);
 	fd = open(map_file_path, O_RDONLY);
 	if (fd < 0)
-		return (free_map(bermap, map_i->row_num), FILE_OPEN_ERR); 
+		return (FILE_OPEN_ERR);
 	return (get_map(fd, bermap, map_i));
 }
 
@@ -60,7 +60,7 @@ int	init_tmp_map(char ***tmp_m, t_map_info **tmp_m_inf, t_map_info *m_inf)
 		(*tmp_m)[i] = (char *)ft_calloc(1 * sizeof(char), m_inf->col_num);
 		if (!(*tmp_m)[i])
 		{
-			//free_map_tmp(tmp_m_inf);
+			free_map(tmp_m, i);
 			return (free(*tmp_m_inf), MEM_ALLOCATION_ERR);
 		}
 		i++;
@@ -90,11 +90,12 @@ int	get_map(int fd, char ***bermap, t_map_info *map_i)
 		&& i + 1 == (size_t)map_i->row_num)
 			break ;
 		if (first_line_len != ft_strlen((*bermap)[i]) && first_line_len > 2)
-			return (free_map(bermap, map_i->row_num), MAP_IS_NOT_RECTANGLE);
+			return (close(fd), MAP_IS_NOT_RECTANGLE);
 		i++;
 	}
+	close(fd);
 	if (i < 2 || first_line_len < 3)
-		return (free_map(bermap, map_i->row_num), MAP_TOO_SMALL);
+		return (MAP_TOO_SMALL);
 	set_map_info_col(map_i, (unsigned int)first_line_len - 1);
 	return (map_validator(*bermap, map_i));
 }

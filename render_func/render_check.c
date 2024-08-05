@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_check.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamatsuu <tamatsuu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tamatsuu <tamatsuu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 03:29:50 by tamatsuu          #+#    #+#             */
-/*   Updated: 2024/08/04 22:46:08 by tamatsuu         ###   ########.fr       */
+/*   Updated: 2024/08/06 01:50:23 by tamatsuu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,6 @@ int	movable_check(t_vars *vars, int keycode)
 		y = y - 1;
 	else if (keycode == DOWN_KEY)
 		x = x + 1;
-	printf("m_inf->row_num%u\n",vars->m_info->row_num);
-	printf("m_inf->col_num%u\n",vars->m_info->col_num);
-	printf("x%zd\n",x);
-	printf("y%zd\n",y);
 	if (x >= vars->m_info->row_num || x <= 0 || \
 	y <= 0 || vars->m_info->col_num <= y)
 		return (NO_MOVE);

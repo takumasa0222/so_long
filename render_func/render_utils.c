@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamatsuu <tamatsuu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tamatsuu <tamatsuu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 04:08:38 by tamatsuu          #+#    #+#             */
-/*   Updated: 2024/08/04 22:59:50 by tamatsuu         ###   ########.fr       */
+/*   Updated: 2024/08/06 03:02:40 by tamatsuu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <mlx.h>
 #include "render_func.h"
 #include "../utilities/so_long_utils.h"
+#include "../libft/libft.h"
 
 void	set_map_position(int keycode, t_vars *vars)
 {
@@ -44,7 +45,34 @@ void	end_game(t_vars *vars)
 void	close_window(t_vars *vars)
 {
 	free_map(&(vars->map), vars->m_info->row_num);
+	free(vars->c_info);
 	mlx_destroy_window(vars->mlx, vars->win);
 	mlx_destroy_display(vars->mlx);
 	exit(0);
+}
+
+void	show_move_count(t_vars *vars, int mov_cnt)
+{
+	char	*temp;
+	char	*msg;
+
+	temp = NULL;
+	msg = NULL;
+	vars->c_info->mov_cnt = vars->c_info->mov_cnt + mov_cnt;
+	temp = ft_itoa(vars->c_info->mov_cnt);
+	if (!temp)
+	{
+		// ft_putstr_fd(MEM_ALLOCATION_ERR_MSG, STDERR_FILENO);
+		close_window(vars);
+	}
+	msg = ft_strjoin(MOVE_COUNT_MSG, temp);
+	if (!msg)
+	{
+		free(temp);
+		// ft_putstr_fd(MEM_ALLOCATION_ERR_MSG, STDERR_FILENO);
+		close_window(vars);
+	}
+	ft_putendl_fd(msg, STDOUT_FILENO);
+	free(temp);
+	free(msg);
 }
