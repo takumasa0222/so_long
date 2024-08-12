@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamatsuu <tamatsuu@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tamatsuu <tamatsuu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:49:11 by tamatsuu          #+#    #+#             */
-/*   Updated: 2024/08/06 02:32:53 by tamatsuu         ###   ########.fr       */
+/*   Updated: 2024/08/12 14:21:35 by tamatsuu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	init_render(char **map, t_map_info	*m_inf)
 	vars.c_info = char_info;
 	render_map(&vars);
 	mlx_key_hook(vars.win, key_hook, &vars);
+	mlx_hook(vars.win, DESTROY_NOTIFY, 0, close_btn_click, &vars);
 	mlx_loop(vars.mlx);
 	return (0);
 }

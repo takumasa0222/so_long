@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_func.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamatsuu <tamatsuu@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tamatsuu <tamatsuu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 02:41:46 by tamatsuu          #+#    #+#             */
-/*   Updated: 2024/08/06 03:01:18 by tamatsuu         ###   ########.fr       */
+/*   Updated: 2024/08/12 14:41:46 by tamatsuu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define EMPTY_XPM "./textures/empty.xpm"
 # define COLCTIB_XPM "./textures/collectible.xpm"
 # define EXIT_XPM "./textures/exit.xpm"
-# define PIX 64
+# define PIX 50
 # define GAME_END 2
 # define NO_MOVE 0
 # define MOVE 1
@@ -64,5 +64,6 @@ void	set_map_position(int keycode, t_vars *vars);
 void	end_game(t_vars *vars);
 void	close_window(t_vars *vars);
 void	show_move_count(t_vars *vars, int mov_cnt);
+int		close_btn_click(t_vars *vars);
 
 #endif

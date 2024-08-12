@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tamatsuu <tamatsuu@student.42tokyo.jp>     +#+  +:+       +#+         #
+#    By: tamatsuu <tamatsuu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/12 13:13:24 by tamatsuu          #+#    #+#              #
-#    Updated: 2024/08/06 05:01:52 by tamatsuu         ###   ########.fr        #
+#    Updated: 2024/08/12 14:27:43 by tamatsuu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,7 @@ clean:
 #	make clean -C libft
 
 fclean: clean
-	@make fclean -C mlx_linux
+	@make clean -C mlx_linux
 	@make fclean -C libft
 	rm -f $(NAME)
 #	make fclean -C libft

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamatsuu <tamatsuu@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tamatsuu <tamatsuu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:25:09 by tamatsuu          #+#    #+#             */
-/*   Updated: 2024/08/06 05:12:52 by tamatsuu         ###   ########.fr       */
+/*   Updated: 2024/08/12 14:24:05 by tamatsuu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@
 # define NO_AVAILABLE_PATH -10
 # define ARG_NUM_INVALID -11
 # define INVALID_FILE_TYPE -12
+
+# define DESTROY_NOTIFY 17
 
 typedef struct s_map_info
 {

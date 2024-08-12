@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tamatsuu <tamatsuu@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: tamatsuu <tamatsuu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 04:08:38 by tamatsuu          #+#    #+#             */
-/*   Updated: 2024/08/06 03:02:40 by tamatsuu         ###   ########.fr       */
+/*   Updated: 2024/08/12 14:26:50 by tamatsuu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	close_window(t_vars *vars)
 	free(vars->c_info);
 	mlx_destroy_window(vars->mlx, vars->win);
 	mlx_destroy_display(vars->mlx);
+	free(vars->mlx);
 	exit(0);
 }
 
@@ -62,17 +63,23 @@ void	show_move_count(t_vars *vars, int mov_cnt)
 	temp = ft_itoa(vars->c_info->mov_cnt);
 	if (!temp)
 	{
-		// ft_putstr_fd(MEM_ALLOCATION_ERR_MSG, STDERR_FILENO);
+		show_error_msg(MEM_ALLOCATION_ERR);
 		close_window(vars);
 	}
 	msg = ft_strjoin(MOVE_COUNT_MSG, temp);
 	if (!msg)
 	{
 		free(temp);
-		// ft_putstr_fd(MEM_ALLOCATION_ERR_MSG, STDERR_FILENO);
+		show_error_msg(MEM_ALLOCATION_ERR);
 		close_window(vars);
 	}
 	ft_putendl_fd(msg, STDOUT_FILENO);
 	free(temp);
 	free(msg);
+}
+
+int	close_btn_click(t_vars *vars)
+{
+	close_window(vars);
+	return (0);
 }
